@@ -1,8 +1,17 @@
 <?php
 
-// Titik masuk Laravel untuk Vercel Serverless PHP Runtime
-// Set document root ke folder public Laravel
-$_SERVER['DOCUMENT_ROOT'] = __DIR__ . '/../public';
+/**
+ * Vercel Serverless PHP Entry Point untuk Laravel
+ */
 
-// Forward semua request ke public/index.php Laravel
-require __DIR__ . '/../public/index.php';
+// Set root project directory
+$rootDir = dirname(__DIR__);
+
+// Set DOCUMENT_ROOT ke folder public Laravel
+$_SERVER['DOCUMENT_ROOT'] = $rootDir . '/public';
+
+// Pindah ke root project agar Laravel bisa menemukan vendor & bootstrap
+chdir($rootDir);
+
+// Bootstrap Laravel
+require $rootDir . '/public/index.php';
